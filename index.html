@@ -168,11 +168,11 @@
             .button-container {
                 flex-direction: column; /* 헤더 버튼들을 세로로 정렬 */
                 align-items: center; /* 세로 정렬된 버튼들을 중앙에 배치 */
-                max-width: 100%;
+                max-width: 25%;
             }
 
             .header-button {
-                width: calc(100% - 20px); /* 버튼이 화면 너비에 가깝게 확장 */
+                width: calc(50% - 20px); /* 버튼이 화면 너비에 가깝게 확장 */
                 margin: 5px 10px; /* 마진 조정 */
                 padding: 12px 15px;
                 font-size: 16px;
@@ -208,7 +208,7 @@
         /* 미디어 쿼리: 매우 작은 화면 (구형 아이폰 등) */
         @media (max-width: 480px) {
             .video-button {
-                flex-basis: calc(100% - 8px); /* 매우 작은 화면에서 1열 레이아웃 */
+                flex-basis: calc(50% - 8px); /* 매우 작은 화면에서 1열 레이아웃 */
                 min-width: unset; /* 최소 너비 제약 해제 */
             }
         }
@@ -1016,5 +1016,6 @@
 
 </body>
 </html>
+
 
 
