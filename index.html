@@ -12,15 +12,18 @@
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: #f0f0f0;
+            box-sizing: border-box; /* 추가: 박스 모델 일관성 유지 */
         }
 
         .header {
             width: 100%;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 10px 40px;
+            padding: 10px 20px; /* 좌우 패딩 감소 */
             display: flex;
             align-items: center;
+            flex-wrap: wrap; /* 요소들이 공간이 부족할 때 줄바꿈되도록 함 */
+            justify-content: center; /* 헤더 아이템들을 중앙 정렬 */
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -28,22 +31,29 @@
 
         .header-title {
             font-family: 'Nanum Pen Script', cursive;
-            font-size: 3em;
+            font-size: 2.5em; /* 글자 크기 감소 */
             color: #2c3e50;
-            margin-right: 40px;
-            white-space: nowrap;
+            margin-right: 0; /* 우측 마진 제거하여 중앙 정렬에 용이 */
+            margin-bottom: 10px; /* 줄바꿈 시 하단 마진 추가 */
+            white-space: nowrap; /* 제목은 가급적 한 줄 유지 */
+            text-align: center; /* 제목 텍스트 중앙 정렬 */
+            width: 100%; /* 제목이 전체 너비를 차지하게 하여 중앙 정렬 및 줄바꿈 용이 */
         }
 
         .button-container {
             display: flex;
-            flex-grow: 1;
+            flex-grow: 0; /* 더 이상 공간을 채우기 위해 늘어나지 않음 */
+            justify-content: center; /* 버튼 그룹을 중앙 정렬 */
+            flex-wrap: wrap; /* 버튼들이 공간이 부족할 때 줄바꿈되도록 함 */
+            width: 100%; /* 버튼 컨테이너가 전체 너비를 차지하게 함 */
+            max-width: 900px; /* 버튼 컨테이너의 최대 너비 설정 */
+            margin: 0 auto; /* 버튼 컨테이너 자체를 중앙 정렬 */
         }
 
         .header-button {
-            flex-grow: 1;
-            padding: 17px 25px;
-            margin: 0 8px;
-            font-size: 24px; /* 기존 20px + 4px */
+            padding: 10px 18px; /* 패딩 감소 */
+            margin: 5px; /* 버튼 간 마진 감소 */
+            font-size: 18px; /* 글자 크기 감소 */
             font-weight: bold;
             color: #fff;
             background-color: #e74c3c;
@@ -51,6 +61,9 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            min-width: 120px; /* 버튼의 최소 너비 설정 */
+            box-sizing: border-box;
+            text-align: center; /* 버튼 내 텍스트 중앙 정렬 */
         }
 
         .header-button:hover {
@@ -89,13 +102,13 @@
         .video-button-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
-            justify-content: flex-start;
+            gap: 10px; /* 비디오 버튼 간격 감소 */
+            justify-content: flex-start; /* 큰 화면에서는 좌측 정렬 유지 */
         }
 
         .video-button {
-            padding: 15px 21px;
-            font-size: 20px; /* 기존 20px - 2px */
+            padding: 12px 16px; /* 패딩 감소 */
+            font-size: 18px; /* 글자 크기 감소 */
             font-weight: bold;
             color: #fff;
             background-color: #3498db;
@@ -105,9 +118,13 @@
             text-decoration: none;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: flex-start; /* 텍스트가 여러 줄일 때 좌측 정렬 */
             text-align: left;
             transition: background-color 0.3s ease;
+            box-sizing: border-box;
+            flex-basis: calc(33.333% - 10px); /* 약 3열 레이아웃 (gap 포함) */
+            max-width: 300px; /* 너무 넓어지는 것을 방지 */
+            min-width: 100px; /* 너무 작아지는 것을 방지 */
         }
 
         .video-button:hover {
@@ -119,8 +136,81 @@
             line-height: 1.2;
         }
         .video-button span.number {
-            font-size: 0.9em;
-            opacity: 0.8;
+            font-size: 0.9em; /* 원본 유지 */
+            opacity: 0.8; /* 원본 유지 */
+        }
+
+        /* 미디어 쿼리: 태블릿 및 일부 데스크탑 */
+        @media (max-width: 900px) {
+            .header-title {
+                font-size: 2.2em;
+            }
+            .header-button {
+                min-width: unset; /* 버튼 너비 제약 해제 */
+                flex-basis: calc(50% - 10px); /* 헤더 버튼 2열 */
+            }
+        }
+
+        /* 미디어 쿼리: 모바일 기기 (아이폰 8 등) */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px;
+                flex-direction: column; /* 헤더 아이템들을 세로로 정렬 */
+            }
+
+            .header-title {
+                font-size: 2em;
+                margin-bottom: 15px;
+                white-space: normal; /* 제목 줄바꿈 허용 */
+                width: auto;
+            }
+
+            .button-container {
+                flex-direction: column; /* 헤더 버튼들을 세로로 정렬 */
+                align-items: center; /* 세로 정렬된 버튼들을 중앙에 배치 */
+                max-width: 100%;
+            }
+
+            .header-button {
+                width: calc(100% - 20px); /* 버튼이 화면 너비에 가깝게 확장 */
+                margin: 5px 10px; /* 마진 조정 */
+                padding: 12px 15px;
+                font-size: 16px;
+                flex-basis: auto; /* flex-basis 제거하여 width가 우선 적용되도록 함 */
+            }
+
+            .content {
+                padding: 10px;
+            }
+
+            .video-section {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+                margin-bottom: 15px;
+            }
+
+            .video-button-container {
+                gap: 8px; /* 모바일에서 비디오 버튼 간격 더 감소 */
+                justify-content: center; /* 비디오 버튼 그룹을 중앙 정렬 */
+            }
+
+            .video-button {
+                flex-basis: calc(50% - 8px); /* 모바일에서 2열 레이아웃 */
+                padding: 10px 12px;
+                font-size: 16px;
+                max-width: unset; /* 모바일에서 최대 너비 제약 해제 */
+            }
+        }
+
+        /* 미디어 쿼리: 매우 작은 화면 (구형 아이폰 등) */
+        @media (max-width: 480px) {
+            .video-button {
+                flex-basis: calc(100% - 8px); /* 매우 작은 화면에서 1열 레이아웃 */
+                min-width: unset; /* 최소 너비 제약 해제 */
+            }
         }
     </style>
 </head>
@@ -657,122 +747,122 @@
     <div id="section3" class="video-section">
         <h2>03. 원의 방정식</h2>
         <div class="video-button-container">
-            <a href="https://www.youtube.com/watch?v=t-hOw5hJ71U&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=1&pp=iAQB" class="video-button" target="_blank">03-1 (1) 원의 방정식</a>
-            <a href="https://www.youtube.com/watch?v=3InymGp8FPs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=2&pp=iAQB" class="video-button" target="_blank">03-1 (2) 이차방정식 x²+y²+Ax+By+C=0이 나타내는 도형</a>
-            <a href="https://www.youtube.com/watch?v=ce-pIlv9D9E&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=3&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">03-2 좌표축에 접하는 원</a>
-            <a href="https://www.youtube.com/watch?v=pg7ky_MITjw&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=4&pp=iAQB" class="video-button" target="_blank">03-3 두 원의 교점을 지나는 직선의 방정식</a>
-            <a href="https://www.youtube.com/watch?v=h4V1mccYyjk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=5&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">03-4 원과 직선의 위치 관계</a>
-            <a href="https://www.youtube.com/watch?v=3DJDdKcPyJY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=6&pp=iAQB" class="video-button" target="_blank">03-5 (1) 기울기가 주어진 접선의 방정식</a>
-            <a href="https://www.youtube.com/watch?v=z29D0ipedmQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=7&pp=iAQB" class="video-button" target="_blank">03-5 (2) 원 위의 점에서의 접선의 방정식</a>
-            <a href="https://www.youtube.com/watch?v=n_kOJwqhalU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=8&pp=iAQB" class="video-button" target="_blank">03-5 (3) 원 밖의 점에서 그은 접선의 방정식</a>
-            <a href="https://www.youtube.com/watch?v=q5AE3MZc1Q4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=9&pp=iAQB" class="video-button" target="_blank">262번</a>
-            <a href="https://www.youtube.com/watch?v=WGXx0UYLRAc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=10&pp=iAQB" class="video-button" target="_blank">263번</a>
-            <a href="https://www.youtube.com/watch?v=G8LR3m1poNU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=11&pp=iAQB" class="video-button" target="_blank">264번</a>
-            <a href="https://www.youtube.com/watch?v=LtMJl8sIiyc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=12&pp=iAQB" class="video-button" target="_blank">265번</a>
-            <a href="https://www.youtube.com/watch?v=--NhhTtI4TU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=13&pp=iAQB" class="video-button" target="_blank">266번</a>
-            <a href="https://www.youtube.com/watch?v=pCN3BKsTuQ4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=14&pp=iAQB" class="video-button" target="_blank">267번</a>
-            <a href="https://www.youtube.com/watch?v=zgm6eeJRP2M&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=15&pp=iAQB" class="video-button" target="_blank">268번</a>
-            <a href="https://www.youtube.com/watch?v=2FF7_sW5L98&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=16&pp=iAQB" class="video-button" target="_blank">269번</a>
-            <a href="https://www.youtube.com/watch?v=gA11sr2jC74&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=17&pp=iAQB" class="video-button" target="_blank">270번</a>
-            <a href="https://www.youtube.com/watch?v=knpLEZ-GaXA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=18&pp=iAQB" class="video-button" target="_blank">271번</a>
-            <a href="https://www.youtube.com/watch?v=N9ObzbVL-Is&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=19&pp=iAQB" class="video-button" target="_blank">272번</a>
-            <a href="https://www.youtube.com/watch?v=Mx35oehcMhA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=20&pp=iAQB" class="video-button" target="_blank">273번</a>
-            <a href="https://www.youtube.com/watch?v=EiwuA3dN8cY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=21&pp=iAQB" class="video-button" target="_blank">274번</a>
-            <a href="https://www.youtube.com/watch?v=MzDboeWnhOM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=22&pp=iAQB" class="video-button" target="_blank">275번</a>
-            <a href="https://www.youtube.com/watch?v=BFv_Vq9OvjM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=23&pp=iAQB" class="video-button" target="_blank">276번</a>
-            <a href="https://www.youtube.com/watch?v=GlVzc9ZwegA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=24&pp=iAQB" class="video-button" target="_blank">277번</a>
-            <a href="https://www.youtube.com/watch?v=-_2seKK4XGg&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=25&pp=iAQB" class="video-button" target="_blank">278번</a>
-            <a href="https://www.youtube.com/watch?v=g9ZdDSjfxUc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=26&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">279번</a>
-            <a href="https://www.youtube.com/watch?v=SO_tGUakrYQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=27&pp=iAQB" class="video-button" target="_blank">280번</a>
-            <a href="https://www.youtube.com/watch?v=UKMcy18oGqI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=28&pp=iAQB" class="video-button" target="_blank">281번</a>
-            <a href="https://www.youtube.com/watch?v=T_-C7g1hWD4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=29&pp=iAQB" class="video-button" target="_blank">282번</a>
-            <a href="https://www.youtube.com/watch?v=uHpbNN35Ny0&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=30&pp=iAQB" class="video-button" target="_blank">283번</a>
-            <a href="https://www.youtube.com/watch?v=CuxGNH_I-as&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=31&pp=iAQB" class="video-button" target="_blank">284번</a>
-            <a href="https://www.youtube.com/watch?v=fRvNh1W1go4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=32&pp=iAQB" class="video-button" target="_blank">285번</a>
-            <a href="https://www.youtube.com/watch?v=gn13ja6_Uuc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=33&pp=iAQB" class="video-button" target="_blank">286번</a>
-            <a href="https://www.youtube.com/watch?v=Ev9NNkAnfFY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=34&pp=iAQB" class="video-button" target="_blank">287번</a>
-            <a href="https://www.youtube.com/watch?v=dGcuP4Svnvo&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=35&pp=iAQB" class="video-button" target="_blank">288번</a>
-            <a href="https://www.youtube.com/watch?v=0CBCWQDuAvQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=36&pp=iAQB" class="video-button" target="_blank">289번</a>
-            <a href="https://www.youtube.com/watch?v=IJ6ghP5Hhi0&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=37&pp=iAQB" class="video-button" target="_blank">290번</a>
-            <a href="https://www.youtube.com/watch?v=hxebEB4M7Do&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=38&pp=iAQB" class="video-button" target="_blank">291번</a>
-            <a href="https://www.youtube.com/watch?v=rJktmh1vrFo&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=39&pp=iAQB" class="video-button" target="_blank">292번</a>
-            <a href="https://www.youtube.com/watch?v=EDZEnRUILHQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=40&pp=iAQB" class="video-button" target="_blank">293번</a>
-            <a href="https://www.youtube.com/watch?v=KBoMKkvGgiQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=41&pp=iAQB" class="video-button" target="_blank">294번</a>
-            <a href="https://www.youtube.com/watch?v=0vJzgHufh8k&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=42&pp=iAQB" class="video-button" target="_blank">295번</a>
-            <a href="https://www.youtube.com/watch?v=fM6N-otJ2p4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=43&pp=iAQB" class="video-button" target="_blank">296번</a>
-            <a href="https://www.youtube.com/watch?v=wEo6X86Wlx4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=44&pp=iAQB" class="video-button" target="_blank">297번</a>
-            <a href="https://www.youtube.com/watch?v=OBXtvwiydvU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=45&pp=iAQB" class="video-button" target="_blank">298번</a>
-            <a href="https://www.youtube.com/watch?v=BVSYheA4pWc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=46&pp=iAQB" class="video-button" target="_blank">299번</a>
-            <a href="https://www.youtube.com/watch?v=A6Hekiz5G4k&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=47&pp=iAQB" class="video-button" target="_blank">300번</a>
-            <a href="https://www.youtube.com/watch?v=VuVeQHVwCFI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=48&pp=iAQB" class="video-button" target="_blank">301번</a>
-            <a href="https://www.youtube.com/watch?v=ajD2YpCHExk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=49&pp=iAQB" class="video-button" target="_blank">302번</a>
-            <a href="https://www.youtube.com/watch?v=fkR8qs2fCmk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=50&pp=iAQB" class="video-button" target="_blank">303번</a>
-            <a href="https://www.youtube.com/watch?v=3zL_27RAF24&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=51&pp=iAQB" class="video-button" target="_blank">304번</a>
-            <a href="https://www.youtube.com/watch?v=h_Br2P1zsRY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=52&pp=iAQB" class="video-button" target="_blank">305번</a>
-            <a href="https://www.youtube.com/watch?v=cCVR8UC34zU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=53&pp=iAQB" class="video-button" target="_blank">306번</a>
-            <a href="https://www.youtube.com/watch?v=fw_lqIFoUZk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=54&pp=iAQB" class="video-button" target="_blank">307번</a>
-            <a href="https://www.youtube.com/watch?v=QXRnBbObMgU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=55&pp=iAQB" class="video-button" target="_blank">308번</a>
-            <a href="https://www.youtube.com/watch?v=5W-bYgAdBio&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=56&pp=iAQB" class="video-button" target="_blank">309번</a>
-            <a href="https://www.youtube.com/watch?v=V3Cs44z-9gI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=57&pp=iAQB" class="video-button" target="_blank">310번</a>
-            <a href="https://www.youtube.com/watch?v=CP12PkilWbY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=58&pp=iAQB" class="video-button" target="_blank">311번</a>
-            <a href="https://www.youtube.com/watch?v=oN2wRWf1Tso&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=59&pp=iAQB" class="video-button" target="_blank">312번</a>
-            <a href="https://www.youtube.com/watch?v=ERx0XciOZvY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=60&pp=iAQB" class="video-button" target="_blank">313번</a>
-            <a href="https://www.youtube.com/watch?v=GGz1LmG9cIs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=61&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">314번</a>
-            <a href="https://www.youtube.com/watch?v=n-mfSKpjTb4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=62&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">315번</a>
-            <a href="https://www.youtube.com/watch?v=2PJdEaUMwcI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=63&pp=iAQB" class="video-button" target="_blank">316번</a>
-            <a href="https://www.youtube.com/watch?v=Dk27YZEd1sg&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=64&pp=iAQB" class="video-button" target="_blank">317번</a>
-            <a href="https://www.youtube.com/watch?v=u5KaGvixsmg&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=65&pp=iAQB" class="video-button" target="_blank">318번</a>
-            <a href="https://www.youtube.com/watch?v=BIW0Fv2Brxk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=66&pp=iAQB" class="video-button" target="_blank">319번</a>
-            <a href="https://www.youtube.com/watch?v=ME4G8Sl_aMI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=67&pp=iAQB" class="video-button" target="_blank">320번</a>
-            <a href="https://www.youtube.com/watch?v=9CNKgGx5YRk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=68&pp=iAQB" class="video-button" target="_blank">321번</a>
-            <a href="https://www.youtube.com/watch?v=djaJh6XED4Q&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=69&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">322번</a>
-            <a href="https://www.youtube.com/watch?v=f3bHAYWzt-Q&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=70&pp=iAQB" class="video-button" target="_blank">323번</a>
-            <a href="https://www.youtube.com/watch?v=ORDhgxQObjs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=71&pp=iAQB" class="video-button" target="_blank">324번</a>
-            <a href="https://www.youtube.com/watch?v=TF95q3Tt7pw&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=72&pp=iAQB" class="video-button" target="_blank">325번</a>
-            <a href="https://www.youtube.com/watch?v=RTfFEfhUT7c&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=73&pp=iAQB" class="video-button" target="_blank">326번</a>
-            <a href="https://www.youtube.com/watch?v=XAGWDnq6DL8&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=74&pp=iAQB" class="video-button" target="_blank">327번</a>
-            <a href="https://www.youtube.com/watch?v=DW3Py4eLjTc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=75&pp=iAQB" class="video-button" target="_blank">328번</a>
-            <a href="https://www.youtube.com/watch?v=DZC7C6Rs0Uo&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=76&pp=iAQB" class="video-button" target="_blank">329번</a>
-            <a href="https://www.youtube.com/watch?v=jAZkfNMoezs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=77&pp=iAQB" class="video-button" target="_blank">330번</a>
-            <a href="https://www.youtube.com/watch?v=ewJzX_NU5IA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=78&pp=iAQB" class="video-button" target="_blank">331번</a>
-            <a href="https://www.youtube.com/watch?v=uTpda1EOsCw&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=79&pp=iAQB" class="video-button" target="_blank">332번</a>
-            <a href="https://www.youtube.com/watch?v=0o88ii8WUCQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=80&pp=iAQB" class="video-button" target="_blank">333번</a>
-            <a href="https://www.youtube.com/watch?v=08NQy9WycIo&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=81&pp=iAQB" class="video-button" target="_blank">334번</a>
-            <a href="https://www.youtube.com/watch?v=pE1WKQMTtsc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=82&pp=iAQB" class="video-button" target="_blank">335번</a>
-            <a href="https://www.youtube.com/watch?v=fh8Y-4qAbsk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=83&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">336번</a>
-            <a href="https://www.youtube.com/watch?v=METMMY-2JOY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=84&pp=iAQB" class="video-button" target="_blank">337번</a>
-            <a href="https://www.youtube.com/watch?v=1TpX0hcS9EU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=85&pp=iAQB" class="video-button" target="_blank">338번</a>
-            <a href="https://www.youtube.com/watch?v=BZijtprGVfU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=86&pp=iAQB" class="video-button" target="_blank">339번</a>
-            <a href="https://www.youtube.com/watch?v=67_TeZiiAo0&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=87&pp=iAQB" class="video-button" target="_blank">340번</a>
-            <a href="https://www.youtube.com/watch?v=oJIHBi3u5G4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=88&pp=iAQB" class="video-button" target="_blank">341번</a>
-            <a href="https://www.youtube.com/watch?v=LAiFkRa9DCc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=89&pp=iAQB" class="video-button" target="_blank">342번</a>
-            <a href="https://www.youtube.com/watch?v=GTLP-dvKyNU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=90&pp=iAQB" class="video-button" target="_blank">343번</a>
-            <a href="https://www.youtube.com/watch?v=Cjcpns0o_ZE&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=91&pp=iAQB" class="video-button" target="_blank">344번</a>
-            <a href="https://www.youtube.com/watch?v=AxSosyAZPB4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=92&pp=iAQB" class="video-button" target="_blank">345번</a>
-            <a href="https://www.youtube.com/watch?v=-He2qxRAwr8&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=93&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">346번</a>
-            <a href="https://www.youtube.com/watch?v=vmDtpvozxaI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=94&pp=iAQB" class="video-button" target="_blank">347번</a>
-            <a href="https://www.youtube.com/watch?v=aPp_3bw-HHk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=95&pp=iAQB" class="video-button" target="_blank">348번</a>
-            <a href="https://www.youtube.com/watch?v=HzilvEyrdKE&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=96&pp=iAQB" class="video-button" target="_blank">349번</a>
-            <a href="https://www.youtube.com/watch?v=9PjbUY0j6EU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=97&pp=iAQB" class="video-button" target="_blank">350번</a>
-            <a href="https://www.youtube.com/watch?v=CliojFrQxVk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=98&pp=iAQB" class="video-button" target="_blank">351번</a>
-            <a href="https://www.youtube.com/watch?v=vPJdgffy97w&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=99&pp=iAQB" class="video-button" target="_blank">352번</a>
-            <a href="https://www.youtube.com/watch?v=HEZsi7jH76U&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=100&pp=iAQB" class="video-button" target="_blank">353번</a>
-            <a href="https://www.youtube.com/watch?v=_6ib21B-ov4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=101&pp=iAQB" class="video-button" target="_blank">354번</a>
-            <a href="https://www.youtube.com/watch?v=lM7d-4Dv9DM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=102&pp=iAQB" class="video-button" target="_blank">355번</a>
-            <a href="https://www.youtube.com/watch?v=ThEIOXm1PBA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=103&pp=iAQB" class="video-button" target="_blank">356번</a>
-            <a href="https://www.youtube.com/watch?v=zKIHS-ENWpY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=104&pp=iAQB" class="video-button" target="_blank">357번</a>
-            <a href="https://www.youtube.com/watch?v=phP6wFDwaoM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=105&pp=iAQB" class="video-button" target="_blank">358번</a>
-            <a href="https://www.youtube.com/watch?v=QBQwniP0kAU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=106&pp=iAQB" class="video-button" target="_blank">359번</a>
-            <a href="https://www.youtube.com/watch?v=ZmMUbwB4Rqs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=107&pp=iAQB" class="video-button" target="_blank">360번</a>
-            <a href="https://www.youtube.com/watch?v=7gluuXMRTvM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=108&pp=iAQB" class="video-button" target="_blank">361번</a>
-            <a href="https://www.youtube.com/watch?v=cEEftpr3_ms&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=109&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">362번</a>
-            <a href="https://www.youtube.com/watch?v=xRoUJslY8xs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=110&pp=iAQB" class="video-button" target="_blank">363번</a>
-            <a href="https://www.youtube.com/watch?v=d7VyKyZE7mI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=111&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank">364번</a>
-            <a href="https://www.youtube.com/watch?v=mfwHuVraTBk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=112&pp=iAQB" class="video-button" target="_blank">365번</a>
-            <a href="https://www.youtube.com/watch?v=C5AekBQRx54&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=113&pp=iAQB" class="video-button" target="_blank">366번</a>
-            <a href="https://www.youtube.com/watch?v=Ha2wsVro-5w&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=114&pp=iAQB" class="video-button" target="_blank">367번</a>
-            <a href="https://www.youtube.com/watch?v=l9fHiSv246A&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=115&pp=iAQB" class="video-button" target="_blank">368번</a>
-            <a href="https://www.youtube.com/watch?v=ZkD1ABipxI8&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=116&pp=iAQB" class="video-button" target="_blank">369번</a>            
+            <a href="https://www.youtube.com/watch?v=t-hOw5hJ71U&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=1&pp=iAQB" class="video-button" target="_blank"><span class="title">03-1 (1) 원의 방정식</span></a>
+            <a href="https://www.youtube.com/watch?v=3InymGp8FPs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=2&pp=iAQB" class="video-button" target="_blank"><span class="title">03-1 (2) 이차방정식 x²+y²+Ax+By+C=0이 나타내는 도형</span></a>
+            <a href="https://www.youtube.com/watch?v=ce-pIlv9D9E&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=3&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="title">03-2 좌표축에 접하는 원</span></a>
+            <a href="https://www.youtube.com/watch?v=pg7ky_MITjw&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=4&pp=iAQB" class="video-button" target="_blank"><span class="title">03-3 두 원의 교점을 지나는 직선의 방정식</span></a>
+            <a href="https://www.youtube.com/watch?v=h4V1mccYyjk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=5&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="title">03-4 원과 직선의 위치 관계</span></a>
+            <a href="https://www.youtube.com/watch?v=3DJDdKcPyJY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=6&pp=iAQB" class="video-button" target="_blank"><span class="title">03-5 (1) 기울기가 주어진 접선의 방정식</span></a>
+            <a href="https://www.youtube.com/watch?v=z29D0ipedmQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=7&pp=iAQB" class="video-button" target="_blank"><span class="title">03-5 (2) 원 위의 점에서의 접선의 방정식</span></a>
+            <a href="https://www.youtube.com/watch?v=n_kOJwqhalU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=8&pp=iAQB" class="video-button" target="_blank"><span class="title">03-5 (3) 원 밖의 점에서 그은 접선의 방정식</span></a>
+            <a href="https://www.youtube.com/watch?v=q5AE3MZc1Q4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=9&pp=iAQB" class="video-button" target="_blank"><span class="number">262번</span></a>
+            <a href="https://www.youtube.com/watch?v=WGXx0UYLRAc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=10&pp=iAQB" class="video-button" target="_blank"><span class="number">263번</span></a>
+            <a href="https://www.youtube.com/watch?v=G8LR3m1poNU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=11&pp=iAQB" class="video-button" target="_blank"><span class="number">264번</span></a>
+            <a href="https://www.youtube.com/watch?v=LtMJl8sIiyc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=12&pp=iAQB" class="video-button" target="_blank"><span class="number">265번</span></a>
+            <a href="https://www.youtube.com/watch?v=--NhhTtI4TU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=13&pp=iAQB" class="video-button" target="_blank"><span class="number">266번</span></a>
+            <a href="https://www.youtube.com/watch?v=pCN3BKsTuQ4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=14&pp=iAQB" class="video-button" target="_blank"><span class="number">267번</span></a>
+            <a href="https://www.youtube.com/watch?v=zgm6eeJRP2M&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=15&pp=iAQB" class="video-button" target="_blank"><span class="number">268번</span></a>
+            <a href="https://www.youtube.com/watch?v=2FF7_sW5L98&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=16&pp=iAQB" class="video-button" target="_blank"><span class="number">269번</span></a>
+            <a href="https://www.youtube.com/watch?v=gA11sr2jC74&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=17&pp=iAQB" class="video-button" target="_blank"><span class="number">270번</span></a>
+            <a href="https://www.youtube.com/watch?v=knpLEZ-GaXA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=18&pp=iAQB" class="video-button" target="_blank"><span class="number">271번</span></a>
+            <a href="https://www.youtube.com/watch?v=N9ObzbVL-Is&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=19&pp=iAQB" class="video-button" target="_blank"><span class="number">272번</span></a>
+            <a href="https://www.youtube.com/watch?v=Mx35oehcMhA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=20&pp=iAQB" class="video-button" target="_blank"><span class="number">273번</span></a>
+            <a href="https://www.youtube.com/watch?v=EiwuA3dN8cY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=21&pp=iAQB" class="video-button" target="_blank"><span class="number">274번</span></a>
+            <a href="https://www.youtube.com/watch?v=MzDboeWnhOM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=22&pp=iAQB" class="video-button" target="_blank"><span class="number">275번</span></a>
+            <a href="https://www.youtube.com/watch?v=BFv_Vq9OvjM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=23&pp=iAQB" class="video-button" target="_blank"><span class="number">276번</span></a>
+            <a href="https://www.youtube.com/watch?v=GlVzc9ZwegA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=24&pp=iAQB" class="video-button" target="_blank"><span class="number">277번</span></a>
+            <a href="https://www.youtube.com/watch?v=-_2seKK4XGg&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=25&pp=iAQB" class="video-button" target="_blank"><span class="number">278번</span></a>
+            <a href="https://www.youtube.com/watch?v=g9ZdDSjfxUc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=26&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="number">279번</span></a>
+            <a href="https://www.youtube.com/watch?v=SO_tGUakrYQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=27&pp=iAQB" class="video-button" target="_blank"><span class="number">280번</span></a>
+            <a href="https://www.youtube.com/watch?v=UKMcy18oGqI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=28&pp=iAQB" class="video-button" target="_blank"><span class="number">281번</span></a>
+            <a href="https://www.youtube.com/watch?v=T_-C7g1hWD4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=29&pp=iAQB" class="video-button" target="_blank"><span class="number">282번</span></a>
+            <a href="https://www.youtube.com/watch?v=uHpbNN35Ny0&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=30&pp=iAQB" class="video-button" target="_blank"><span class="number">283번</span></a>
+            <a href="https://www.youtube.com/watch?v=CuxGNH_I-as&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=31&pp=iAQB" class="video-button" target="_blank"><span class="number">284번</span></a>
+            <a href="https://www.youtube.com/watch?v=fRvNh1W1go4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=32&pp=iAQB" class="video-button" target="_blank"><span class="number">285번</span></a>
+            <a href="https://www.youtube.com/watch?v=gn13ja6_Uuc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=33&pp=iAQB" class="video-button" target="_blank"><span class="number">286번</span></a>
+            <a href="https://www.youtube.com/watch?v=Ev9NNkAnfFY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=34&pp=iAQB" class="video-button" target="_blank"><span class="number">287번</span></a>
+            <a href="https://www.youtube.com/watch?v=dGcuP4Svnvo&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=35&pp=iAQB" class="video-button" target="_blank"><span class="number">288번</span></a>
+            <a href="https://www.youtube.com/watch?v=0CBCWQDuAvQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=36&pp=iAQB" class="video-button" target="_blank"><span class="number">289번</span></a>
+            <a href="https://www.youtube.com/watch?v=IJ6ghP5Hhi0&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=37&pp=iAQB" class="video-button" target="_blank"><span class="number">290번</span></a>
+            <a href="https://www.youtube.com/watch?v=hxebEB4M7Do&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=38&pp=iAQB" class="video-button" target="_blank"><span class="number">291번</span></a>
+            <a href="https://www.youtube.com/watch?v=rJktmh1vrFo&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=39&pp=iAQB" class="video-button" target="_blank"><span class="number">292번</span></a>
+            <a href="https://www.youtube.com/watch?v=EDZEnRUILHQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=40&pp=iAQB" class="video-button" target="_blank"><span class="number">293번</span></a>
+            <a href="https://www.youtube.com/watch?v=KBoMKkvGgiQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=41&pp=iAQB" class="video-button" target="_blank"><span class="number">294번</span></a>
+            <a href="https://www.youtube.com/watch?v=0vJzgHufh8k&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=42&pp=iAQB" class="video-button" target="_blank"><span class="number">295번</span></a>
+            <a href="https://www.youtube.com/watch?v=fM6N-otJ2p4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=43&pp=iAQB" class="video-button" target="_blank"><span class="number">296번</span></a>
+            <a href="https://www.youtube.com/watch?v=wEo6X86Wlx4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=44&pp=iAQB" class="video-button" target="_blank"><span class="number">297번</span></a>
+            <a href="https://www.youtube.com/watch?v=OBXtvwiydvU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=45&pp=iAQB" class="video-button" target="_blank"><span class="number">298번</span></a>
+            <a href="https://www.youtube.com/watch?v=BVSYheA4pWc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=46&pp=iAQB" class="video-button" target="_blank"><span class="number">299번</span></a>
+            <a href="https://www.youtube.com/watch?v=A6Hekiz5G4k&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=47&pp=iAQB" class="video-button" target="_blank"><span class="number">300번</span></a>
+            <a href="https://www.youtube.com/watch?v=VuVeQHVwCFI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=48&pp=iAQB" class="video-button" target="_blank"><span class="number">301번</span></a>
+            <a href="https://www.youtube.com/watch?v=ajD2YpCHExk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=49&pp=iAQB" class="video-button" target="_blank"><span class="number">302번</span></a>
+            <a href="https://www.youtube.com/watch?v=fkR8qs2fCmk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=50&pp=iAQB" class="video-button" target="_blank"><span class="number">303번</span></a>
+            <a href="https://www.youtube.com/watch?v=3zL_27RAF24&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=51&pp=iAQB" class="video-button" target="_blank"><span class="number">304번</span></a>
+            <a href="https://www.youtube.com/watch?v=h_Br2P1zsRY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=52&pp=iAQB" class="video-button" target="_blank"><span class="number">305번</span></a>
+            <a href="https://www.youtube.com/watch?v=cCVR8UC34zU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=53&pp=iAQB" class="video-button" target="_blank"><span class="number">306번</span></a>
+            <a href="https://www.youtube.com/watch?v=fw_lqIFoUZk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=54&pp=iAQB" class="video-button" target="_blank"><span class="number">307번</span></a>
+            <a href="https://www.youtube.com/watch?v=QXRnBbObMgU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=55&pp=iAQB" class="video-button" target="_blank"><span class="number">308번</span></a>
+            <a href="https://www.youtube.com/watch?v=5W-bYgAdBio&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=56&pp=iAQB" class="video-button" target="_blank"><span class="number">309번</span></a>
+            <a href="https://www.youtube.com/watch?v=V3Cs44z-9gI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=57&pp=iAQB" class="video-button" target="_blank"><span class="number">310번</span></a>
+            <a href="https://www.youtube.com/watch?v=CP12PkilWbY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=58&pp=iAQB" class="video-button" target="_blank"><span class="number">311번</span></a>
+            <a href="https://www.youtube.com/watch?v=oN2wRWf1Tso&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=59&pp=iAQB" class="video-button" target="_blank"><span class="number">312번</span></a>
+            <a href="https://www.youtube.com/watch?v=ERx0XciOZvY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=60&pp=iAQB" class="video-button" target="_blank"><span class="number">313번</span></a>
+            <a href="https://www.youtube.com/watch?v=GGz1LmG9cIs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=61&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="number">314번</span></a>
+            <a href="https://www.youtube.com/watch?v=n-mfSKpjTb4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=62&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="number">315번</span></a>
+            <a href="https://www.youtube.com/watch?v=2PJdEaUMwcI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=63&pp=iAQB" class="video-button" target="_blank"><span class="number">316번</span></a>
+            <a href="https://www.youtube.com/watch?v=Dk27YZEd1sg&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=64&pp=iAQB" class="video-button" target="_blank"><span class="number">317번</span></a>
+            <a href="https://www.youtube.com/watch?v=u5KaGvixsmg&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=65&pp=iAQB" class="video-button" target="_blank"><span class="number">318번</span></a>
+            <a href="https://www.youtube.com/watch?v=BIW0Fv2Brxk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=66&pp=iAQB" class="video-button" target="_blank"><span class="number">319번</span></a>
+            <a href="https://www.youtube.com/watch?v=ME4G8Sl_aMI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=67&pp=iAQB" class="video-button" target="_blank"><span class="number">320번</span></a>
+            <a href="https://www.youtube.com/watch?v=9CNKgGx5YRk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=68&pp=iAQB" class="video-button" target="_blank"><span class="number">321번</span></a>
+            <a href="https://www.youtube.com/watch?v=djaJh6XED4Q&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=69&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="number">322번</span></a>
+            <a href="https://www.youtube.com/watch?v=f3bHAYWzt-Q&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=70&pp=iAQB" class="video-button" target="_blank"><span class="number">323번</span></a>
+            <a href="https://www.youtube.com/watch?v=ORDhgxQObjs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=71&pp=iAQB" class="video-button" target="_blank"><span class="number">324번</span></a>
+            <a href="https://www.youtube.com/watch?v=TF95q3Tt7pw&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=72&pp=iAQB" class="video-button" target="_blank"><span class="number">325번</span></a>
+            <a href="https://www.youtube.com/watch?v=RTfFEfhUT7c&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=73&pp=iAQB" class="video-button" target="_blank"><span class="number">326번</span></a>
+            <a href="https://www.youtube.com/watch?v=XAGWDnq6DL8&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=74&pp=iAQB" class="video-button" target="_blank"><span class="number">327번</span></a>
+            <a href="https://www.youtube.com/watch?v=DW3Py4eLjTc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=75&pp=iAQB" class="video-button" target="_blank"><span class="number">328번</span></a>
+            <a href="https://www.youtube.com/watch?v=DZC7C6Rs0Uo&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=76&pp=iAQB" class="video-button" target="_blank"><span class="number">329번</span></a>
+            <a href="https://www.youtube.com/watch?v=jAZkfNMoezs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=77&pp=iAQB" class="video-button" target="_blank"><span class="number">330번</span></a>
+            <a href="https://www.youtube.com/watch?v=ewJzX_NU5IA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=78&pp=iAQB" class="video-button" target="_blank"><span class="number">331번</span></a>
+            <a href="https://www.youtube.com/watch?v=uTpda1EOsCw&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=79&pp=iAQB" class="video-button" target="_blank"><span class="number">332번</span></a>
+            <a href="https://www.youtube.com/watch?v=0o88ii8WUCQ&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=80&pp=iAQB" class="video-button" target="_blank"><span class="number">333번</span></a>
+            <a href="https://www.youtube.com/watch?v=08NQy9WycIo&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=81&pp=iAQB" class="video-button" target="_blank"><span class="number">334번</span></a>
+            <a href="https://www.youtube.com/watch?v=pE1WKQMTtsc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=82&pp=iAQB" class="video-button" target="_blank"><span class="number">335번</span></a>
+            <a href="https://www.youtube.com/watch?v=fh8Y-4qAbsk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=83&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="number">336번</span></a>
+            <a href="https://www.youtube.com/watch?v=METMMY-2JOY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=84&pp=iAQB" class="video-button" target="_blank"><span class="number">337번</span></a>
+            <a href="https://www.youtube.com/watch?v=1TpX0hcS9EU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=85&pp=iAQB" class="video-button" target="_blank"><span class="number">338번</span></a>
+            <a href="https://www.youtube.com/watch?v=BZijtprGVfU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=86&pp=iAQB" class="video-button" target="_blank"><span class="number">339번</span></a>
+            <a href="https://www.youtube.com/watch?v=67_TeZiiAo0&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=87&pp=iAQB" class="video-button" target="_blank"><span class="number">340번</span></a>
+            <a href="https://www.youtube.com/watch?v=oJIHBi3u5G4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=88&pp=iAQB" class="video-button" target="_blank"><span class="number">341번</span></a>
+            <a href="https://www.youtube.com/watch?v=LAiFkRa9DCc&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=89&pp=iAQB" class="video-button" target="_blank"><span class="number">342번</span></a>
+            <a href="https://www.youtube.com/watch?v=GTLP-dvKyNU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=90&pp=iAQB" class="video-button" target="_blank"><span class="number">343번</span></a>
+            <a href="https://www.youtube.com/watch?v=Cjcpns0o_ZE&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=91&pp=iAQB" class="video-button" target="_blank"><span class="number">344번</span></a>
+            <a href="https://www.youtube.com/watch?v=AxSosyAZPB4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=92&pp=iAQB" class="video-button" target="_blank"><span class="number">345번</span></a>
+            <a href="https://www.youtube.com/watch?v=-He2qxRAwr8&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=93&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="number">346번</span></a>
+            <a href="https://www.youtube.com/watch?v=vmDtpvozxaI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=94&pp=iAQB" class="video-button" target="_blank"><span class="number">347번</span></a>
+            <a href="https://www.youtube.com/watch?v=aPp_3bw-HHk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=95&pp=iAQB" class="video-button" target="_blank"><span class="number">348번</span></a>
+            <a href="https://www.youtube.com/watch?v=HzilvEyrdKE&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=96&pp=iAQB" class="video-button" target="_blank"><span class="number">349번</span></a>
+            <a href="https://www.youtube.com/watch?v=9PjbUY0j6EU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=97&pp=iAQB" class="video-button" target="_blank"><span class="number">350번</span></a>
+            <a href="https://www.youtube.com/watch?v=CliojFrQxVk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=98&pp=iAQB" class="video-button" target="_blank"><span class="number">351번</span></a>
+            <a href="https://www.youtube.com/watch?v=vPJdgffy97w&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=99&pp=iAQB" class="video-button" target="_blank"><span class="number">352번</a>
+            <a href="https://www.youtube.com/watch?v=HEZsi7jH76U&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=100&pp=iAQB" class="video-button" target="_blank"><span class="number">353번</a>
+            <a href="https://www.youtube.com/watch?v=_6ib21B-ov4&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=101&pp=iAQB" class="video-button" target="_blank"><span class="number">354번</a>
+            <a href="https://www.youtube.com/watch?v=lM7d-4Dv9DM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=102&pp=iAQB" class="video-button" target="_blank"><span class="number">355번</a>
+            <a href="https://www.youtube.com/watch?v=ThEIOXm1PBA&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=103&pp=iAQB" class="video-button" target="_blank"><span class="number">356번</a>
+            <a href="https://www.youtube.com/watch?v=zKIHS-ENWpY&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=104&pp=iAQB" class="video-button" target="_blank"><span class="number">357번</a>
+            <a href="https://www.youtube.com/watch?v=phP6wFDwaoM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=105&pp=iAQB" class="video-button" target="_blank"><span class="number">358번</a>
+            <a href="https://www.youtube.com/watch?v=QBQwniP0kAU&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=106&pp=iAQB" class="video-button" target="_blank"><span class="number">359번</a>
+            <a href="https://www.youtube.com/watch?v=ZmMUbwB4Rqs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=107&pp=iAQB" class="video-button" target="_blank"><span class="number">360번</a>
+            <a href="https://www.youtube.com/watch?v=7gluuXMRTvM&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=108&pp=iAQB" class="video-button" target="_blank"><span class="number">361번</a>
+            <a href="https://www.youtube.com/watch?v=cEEftpr3_ms&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=109&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="number">362번</a>
+            <a href="https://www.youtube.com/watch?v=xRoUJslY8xs&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=110&pp=iAQB" class="video-button" target="_blank"><span class="number">363번</a>
+            <a href="https://www.youtube.com/watch?v=d7VyKyZE7mI&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=111&pp=iAQB0gcJCbIJAYcqIYzv" class="video-button" target="_blank"><span class="number">364번</a>
+            <a href="https://www.youtube.com/watch?v=mfwHuVraTBk&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=112&pp=iAQB" class="video-button" target="_blank"><span class="number">365번</a>
+            <a href="https://www.youtube.com/watch?v=C5AekBQRx54&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=113&pp=iAQB" class="video-button" target="_blank"><span class="number">366번</a>
+            <a href="https://www.youtube.com/watch?v=Ha2wsVro-5w&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=114&pp=iAQB" class="video-button" target="_blank"><span class="number">367번</a>
+            <a href="https://www.youtube.com/watch?v=l9fHiSv246A&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=115&pp=iAQB" class="video-button" target="_blank"><span class="number">368번</a>
+            <a href="https://www.youtube.com/watch?v=ZkD1ABipxI8&list=PLObt94nG_XaygqQjti9mGf2fgGI5aJ0bP&index=116&pp=iAQB" class="video-button" target="_blank"><span class="number">369번</a>            
         </div>
     </div>
 
@@ -926,4 +1016,5 @@
 
 </body>
 </html>
+
 
